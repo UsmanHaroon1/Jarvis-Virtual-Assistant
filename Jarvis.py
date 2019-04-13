@@ -30,14 +30,13 @@ def myCommand():
     with sr.Microphone() as source:
         print("Listening....")
         r.pause_threshold = 1
-        input = r.listen(source)
+        audio = r.listen(source)
     try:
-        query = r.recognize_google(input,language='en-in')
+        query = r.recognize_google(audio,language='en-in')
         print('I said:' + query)
     except sr.UnknownValueError:
-        talk("Sorry sir!,I don't understand.Please type your query")
-        strquery = input('Type your question:')
-        query = str(strquery)
+        talk('Sorry sir! I didn\'t get that! Try typing the command!')
+        query = str(input('Command: '))
 
     return query
 
@@ -78,6 +77,8 @@ while True:
     elif 'stop' in query or 'abort' in query:
         talk('Bye Sir, have a good day.')
         sys.exit()
+    elif 'who is ironman' in query:
+        talk('Playboy,philanthropist,billionaire')
     else:
         query = query
         print("Searching Query:" + query)
